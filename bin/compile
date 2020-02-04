@@ -20,12 +20,13 @@ ORIG_CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 BP_DIR=$(cd "$(dirname "${0:-}")"; cd ..; pwd)
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 for i in "ui" "api" "proxy"
 do
     BUILD_DIR="$ORIG_BUILD_DIR/$i"
     CACHE_DIR="$ORIG_CACHE_DIR/$i"
-    ./compile-subdir
+    "$SCRIPT_DIR/compile-subdir"
 done
 
 cd $BUILD_DIR; cd ui/ ; npm run build; cd ../
